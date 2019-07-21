@@ -3,6 +3,7 @@ dill
 fire
 matplotlib
 numba
+pafy
 psutil
 pycocotools
 requests
@@ -11,3 +12,4 @@ scipy
 slidingwindow
 tqdm
 git+https://github.com/ppwwyyxx/tensorpack.git
+youtube_dl

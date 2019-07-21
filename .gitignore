@@ -118,6 +118,12 @@ models/pretrained/resnet_v2_101/train.graph
 src/pafprocess/pafprocess.py
 src/pafprocess/pafprocess_wrap.cpp
 src/pafprocess/pafprocess_wrap.cxx
+tf_pose/pafprocess/pafprocess_wrap.cxx
 
 # vscode
 .vscode/
+
+# video files
+*.mp4
+*.mp*g
+*.mov

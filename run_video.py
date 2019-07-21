@@ -4,6 +4,7 @@ import time
 
 import cv2
 import numpy as np
+import pafy
 
 from tf_pose.estimator import TfPoseEstimator
 from tf_pose.networks import get_graph_path, model_wh
@@ -23,6 +24,8 @@ fps_time = 0
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='tf-pose-estimation Video')
     parser.add_argument('--video', type=str, default='')
+    parser.add_argument('--youtube', type=bool, default=False,
+                        help='True to stream from Youtube.')
     parser.add_argument('--resolution', type=str, default='432x368',
                         help='network input resolution. default=432x368')
     parser.add_argument('--model', type=str, default='mobilenet_thin',
@@ -37,7 +40,13 @@ if __name__ == '__main__':
                  (args.model, get_graph_path(args.model)))
     w, h = model_wh(args.resolution)
     e = TfPoseEstimator(get_graph_path(args.model), target_size=(w, h))
-    cap = cv2.VideoCapture(args.video)
+
+    if args.youtube:
+        vPafy = pafy.new(args.video)
+        play = vPafy.getbest(preftype="mp4")
+        cap = cv2.VideoCapture(play.url)
+    else:
+        cap = cv2.VideoCapture(args.video)
 
     if cap.isOpened() is False:
         print("Error opening video stream or file")
@@ -45,7 +54,7 @@ if __name__ == '__main__':
         ret_val, image = cap.read()
         # image = cv2.resize(image, dsize=(432, 368))
         humans = e.inference(image, resize_to_default=True, upsample_size=4.0)
-        print(len(humans))
+        # print(len(humans))
         if not args.showBG:
             image = np.zeros(image.shape)
         image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
