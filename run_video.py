@@ -42,9 +42,12 @@ if __name__ == '__main__':
     e = TfPoseEstimator(get_graph_path(args.model), target_size=(w, h))
 
     if args.youtube:
-        vPafy = pafy.new(args.video)
-        play = vPafy.getbest(preftype="mp4")
-        cap = cv2.VideoCapture(play.url)
+        url = args.video
+        vPafy = pafy.new(url)
+        # play = vPafy.getbest(preftype="webm")
+        play = vPafy.getbest().url
+        # cap = cv2.VideoCapture(play.url)
+        cap = cv2.VideoCapture(play)
     else:
         cap = cv2.VideoCapture(args.video)
 
