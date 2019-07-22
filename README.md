@@ -120,6 +120,13 @@ $ python run_webcam.py --model=mobilenet_thin --resize=432x368 --camera=0 --tens
 Then you will see the realtime webcam screen with estimated poses as below. This [Realtime Result](./etcs/openpose_macbook13_mobilenet2.gif) was recored on macbook pro 13" with 3.1Ghz Dual-Core CPU.
 
 
+### 3D
+
+```
+$ python run_3d.py --model=mobilenet_thin --image=images/p2.jpg
+```
+
+
 ### Video files
 
 ```
