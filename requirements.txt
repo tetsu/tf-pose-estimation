@@ -1,4 +1,5 @@
 argparse
+cython
 dill
 fire
 matplotlib
