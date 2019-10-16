@@ -124,6 +124,7 @@ tf_pose/pafprocess/pafprocess_wrap.cxx
 .vscode/
 
 # video files
+videos/
 *.3gp
 *.acc
 *.flv
