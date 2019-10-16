@@ -76,28 +76,28 @@ if __name__ == '__main__':
     while cap.isOpened():
         try:
             ret_val, image = cap.read()
+            # set resolution
             # image = cv2.resize(image, dsize=(432, 368))
+            image = cv2.resize(image, dsize=(480, 270))
+            # if args.resolution:
+            #     size = args.resolution.split('x')
+            #     image = cv2.resize(image, dsize=(int(size[0]), int(size[1])))
             humans = e.inference(image, resize_to_default=True, upsample_size=4.0)
 
             # save keypoints
             if len(humans) > 0:
                 human = humans[0]
 
-                # print(human.body_parts)
                 data_series = {
                     'fps': str(cap.get(cv2.CAP_PROP_FPS)),
                     'time': str(frame_interval * frame_index)
                 }
                 for k in human.body_parts:
                     body_part = human.body_parts[k]
-                    # print([body_part.part_idx, body_part.x, body_part.y, body_part.score])
                     data_series[str(body_part.part_idx)+'x'] = body_part.x
                     data_series[str(body_part.part_idx)+'y'] = body_part.y
                 
-                # print(data_series)
-                # writer.writerows(humans[0])
                 image_keypoints = pd.Series( data_series, index=df.columns, name=str(frame_index))
-                # print(image_keypoints)
                 df = df.append(image_keypoints)
             
             if not args.showBG:
@@ -127,6 +127,6 @@ if __name__ == '__main__':
         if not os.path.exists('./videos/csv'):
             os.mkdir('./videos/csv')
         filename, _ = os.path.splitext(os.path.basename(args.video))
-        df.to_csv('./videos/csv/' + filename + '.csv')
+        df.to_csv('./videos/csv/' + filename + '-' + args.model + '.csv')
 
 logger.debug('finished in ' + str(time.time() - start_time) + ' seconds')
