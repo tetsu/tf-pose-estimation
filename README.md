@@ -127,10 +127,16 @@ $ python run_3d.py --model=mobilenet_thin --image=images/p2.jpg
 ```
 
 
-### Video files
+### Video file
 
 ```
-$ python run_video.py --model=mobilenet_thin --video=./images/ppap.mp4
+$ python run_video.py --model=mobilenet_thin --video=./vodeos/koi01.mp4
+```
+
+### Save Video file's motion data as CSV
+
+```
+$ python run_video2csv.py --model=mobilenet_thin --video=./videos/koi01.mp4 --saveas=./motion.csv
 ```
 
 ## Python Usage
