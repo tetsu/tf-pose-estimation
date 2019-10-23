@@ -70,7 +70,10 @@ if __name__ == '__main__':
     
     df = pd.DataFrame(columns=columns)
     df.index.name = 'index'
-    frame_interval = 1 / cap.get(cv2.CAP_PROP_FPS)
+    try:
+        frame_interval = 1 / cap.get(cv2.CAP_PROP_FPS)
+    except:
+        raise
     
     frame_index = 0
     while cap.isOpened():
